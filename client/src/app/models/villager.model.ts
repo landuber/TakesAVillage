@@ -6,8 +6,8 @@ export class Villager {
                        public middlename: string = '',
                        public lastname: string = '',
                        public address: Address = new Address(),
-                       public ssn: string = '',
-                       public shortbio: string = '') {};
+                       public paymentinfo: PaymentInfo = new PaymentInfo(),
+                       public phonenumber: string = '') {};
 }
 
 export class Address {
@@ -16,6 +16,15 @@ export class Address {
                        public state: string = '',
                        public zip: string = '') {}
 
+}
+
+export class PaymentInfo {
+    public constructor(public address: Address = new Address(),
+                       public cardholdername: string = '',
+                       public cardnumber: string = '',
+                       public expmonth: string = '',
+                       public expyear: string = '',
+                       public cvv: string = '') {}
 }
 
 export interface Authenticate {

@@ -6,11 +6,12 @@ import 'rxjs/add/operator/catch';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Action } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 
 import * as RouterActions from '../router/router.actions';
+import * as fromRoot from '../reducers';
 import * as VillagerActions from './villager.action';
 import { VillagerService } from '../../services/villager.service';
 
@@ -25,13 +26,13 @@ export class VillagerEffects {
         .map((action: VillagerActions.CreateVillager) => action.payload)
         .mergeMap(villager =>
             this.villagerService.createVillager(villager)
-                .map(() => new VillagerActions.CreateVillagerSuccess(villager))
+                .map(() => new VillagerActions.CreateVillagerSuccess())
                 .catch((error) => of(new VillagerActions.CreateVillagerFail(error)))
         );
 
 
   @Effect()
-  loginSuccess$: Observable<Action> = this.actions$
+  CreateVillagerSuccess$: Observable<Action> = this.actions$
     .ofType<VillagerActions.CreateVillagerSuccess>(VillagerActions.CREATE_VILLAGER_SUCCESS)
     .map(() => new RouterActions.Go({ path: ['/login'] }));
 
@@ -45,6 +46,7 @@ export class VillagerEffects {
 
   constructor(
     private villagerService: VillagerService,
+    private store: Store<fromRoot.State>,
     private actions$: Actions
   ) { }
   

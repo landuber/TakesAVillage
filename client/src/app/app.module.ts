@@ -4,7 +4,11 @@ import { HttpClient, HttpClientModule, HttpErrorResponse, HTTP_INTERCEPTORS } fr
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MatInputModule, MatButtonModule, MatCardModule, MatDialogModule } from '@angular/material';
+import { MatInputModule, 
+         MatButtonModule, 
+         MatCardModule, 
+         MatStepperModule,
+         MatDialogModule } from '@angular/material';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
@@ -29,12 +33,18 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { CreateVillagerComponent } from './create-villager/create-villager.component';
 import { LoginComponent } from './login/login.component';
+import { PaymentInfoComponent } from './payment-info/payment-info.component';
+import { ReviewComponent } from './review/review.component';
+import { AppHeaderComponent } from './app-header/app-header.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
     // { path: 'register', component: CreateVillagerComponent, canActivate:[AuthGuard] },
     { path: 'register', component: CreateVillagerComponent },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'review', component: ReviewComponent },
+    { path: 'payment-info', component: PaymentInfoComponent }
 ];
 
 
@@ -42,7 +52,11 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     CreateVillagerComponent,
-    LoginComponent
+    LoginComponent,
+    PaymentInfoComponent,
+    ReviewComponent,
+    AppHeaderComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +67,7 @@ const routes: Routes = [
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatStepperModule,
     MatDialogModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([RouterEffects,

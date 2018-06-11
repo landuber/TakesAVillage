@@ -1,0 +1,11 @@
+.tv-signup-form, .tv-signup-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tv-signup-summary {
+    dd, dt {
+        display: inline;
+    }
+}

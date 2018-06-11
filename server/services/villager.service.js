@@ -26,17 +26,31 @@ exports.createVillager = async function(villager) {
     
     // Creating a new villager 
     var villager = new Villager({
-        Email: villager.email,
-        Password: villager.password,
-        FirstName: villager.firstname,
-        MiddleName: villager.middlename,
-        LastName: villager.lastname,
-        Street: villager.street,
-        City: villager.city,
-        State: villager.state,
-        Zip: villager.zip,
-        SSN: villager.ssn,
-        ShortBio: villager.shortbio
+        email: villager.email,
+        password: villager.password,
+        firstname: villager.firstname,
+        middlename: villager.middlename,
+        lastname: villager.lastname,
+        phonenumber: villager.phonenumber,
+        address: {
+            street: villager.address.street,
+            city: villager.address.city,
+            state: villager.address.state,
+            zip: villager.address.zip
+        },
+        paymentinfo: {
+            address: {
+                street: villager.paymentinfo.address.street,
+                city: villager.paymentinfo.address.city,
+                state: villager.paymentinfo.address.state,
+                zip: villager.paymentinfo.address.zip
+            },
+            cardholdername: villager.paymentinfo.cardholdername,
+            cardnumber: villager.paymentinfo.cardnumber,
+            expmonth:  villager.paymentinfo.expmonth,
+            expyear:  villager.paymentinfo.expyear,
+            cvv:  villager.paymentinfo.cvv
+        }
     });
 
     try {
@@ -53,7 +67,7 @@ exports.signInVillager = async function(email, password) {
     //todo: change to private key instead of secretkey
     //var RSA_PRIVATE_KEY = fs.readFileSync('./config/private.key');
     try {
-        var villager = await Villager.findOne({ Email: email });
+        var villager = await Villager.findOne({ email: email });
         if(!villager) {
             throw Error('villager not found');
         } else {
@@ -64,7 +78,7 @@ exports.signInVillager = async function(email, password) {
                     expiresIn: 7200, 
                     token: 'JWT ' + jwt.sign({}, config.secret, {
                         expiresIn: '2h',
-                        subject: villager.Email
+                        subject: villager.email
                     })
                 };
             } else {
@@ -72,12 +86,11 @@ exports.signInVillager = async function(email, password) {
             }
         }
     } catch(e) {
-        console.log('Error while signing in');
         throw Error('Error while signing in')
     }
 };
 
-exports.updateTodo = async function(villager) {
+exports.updateVillager = async function(villager) {
     var id = villager.id;
 
     try {

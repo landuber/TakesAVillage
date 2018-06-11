@@ -36,4 +36,9 @@ export class LoginComponent implements OnInit {
       }
   }
 
+  isFieldInvalid(field: string) { // {6}
+      var ctrl = this.loginForm.get(field);
+      return ctrl.invalid && (ctrl.dirty || ctrl.touched);
+  }
+
 }

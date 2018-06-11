@@ -51,19 +51,34 @@ exports.createVillager = async function(req, res, next){
         res.json({ success: false, msg: 'Missing required fields'});
     } else {
 
+        console.log(req.body);
         var villager = {
             email: req.body.email,
             password: req.body.password,
             firstname: req.body.firstname,
             middlename: req.body.middlename,
             lastname: req.body.lastname,
-            street: req.body.address.street,
-            city: req.body.address.city,
-            state: req.body.address.state,
-            zip: req.body.address.zip,
-            ssn: req.body.ssn,
-            shortbio: req.body.shortbio,
-            status: req.body.status
+            phonenumber: req.body.phonenumber,
+            address: {
+                street: req.body.address.street,
+                city: req.body.address.city,
+                state: req.body.address.state,
+                zip: req.body.address.zip
+            },
+            paymentinfo: { 
+                 cardholdername: req.body.paymentinfo.cardholdername,
+                 cardnumber: req.body.paymentinfo.cardnumber,
+                 expmonth: req.body.paymentinfo.expmonth,
+                 expyear: req.body.paymentinfo.expyear,
+                 cvv: req.body.paymentinfo.cvv,
+                 address:
+                  { 
+                    street: req.body.paymentinfo.address.street,
+                    city: req.body.paymentinfo.address.city,
+                    state: req.body.paymentinfo.address.state,
+                    zip: req.body.paymentinfo.address.zip 
+                  } 
+            }
         }
 
         try {

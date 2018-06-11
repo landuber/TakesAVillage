@@ -1,0 +1,17 @@
+<header>
+    <nav>
+        <ul>
+            <li>
+                <a routerLink="/aboutus">About Us</a>
+            </li>
+            <li *ngIf="!(loggedIn$ | async)">
+                <a routerLink="/login">Log In</a>
+            </li>
+            <li *ngIf="loggedIn$ | async">
+                <a (click)="onLogout()">Log Out</a>
+            <li *ngIf="!(loggedIn$ | async)">
+                <a routerLink="/register">Sign Up</a>
+            </li>
+        </ul>
+    </nav>
+</header>

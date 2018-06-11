@@ -14,6 +14,7 @@ import * as RouterActions from '../router/router.actions';
 import { AuthService } from '../../services/auth.service';
 import {
   Login,
+  Logout,
   LoginSuccess,
   LoginFailure,
   RefreshLoginState,
@@ -44,6 +45,17 @@ RefreshLoginStateSuccess
         .login(auth)
         .map(villager => ({ type: AuthActionTypes.LoginSuccess, payload: { villager: villager } }))
         .catch(error => of(new LoginFailure(error)))
+        );
+
+
+  @Effect()
+  logout$: Observable<Action> = this.actions$.
+        ofType<Logout>(AuthActionTypes.Logout)
+        .map(() =>
+            {
+                this.authService.logout();
+                return new RouterActions.Go({ path:['/login'] });
+            }
         );
 
   @Effect()

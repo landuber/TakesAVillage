@@ -1,13 +1,24 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-    <div>
-        <mat-form-field>
-            <input matInput type="email" placeholder="Email" formControlName="email">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="password" placeholder="Password" formControlName="password">
-        </mat-form-field>
-    </div>
-    <div>
-        <button type="submit" mat-raised-button>Submit</button>
-    </div>
-</form>
+<div class="tv-login-content">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="tv-login-form" novalidate>
+                <p>Please login to continue</p>
+                <div>
+                    <mat-form-field>
+                        <input matInput type="email" placeholder="Email" formControlName="email">
+                        <mat-error *ngIf="isFieldInvalid('email')">Email error</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                        <mat-error *ngIf="isFieldInvalid('password')">Password error</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button type="submit" color="primary"  mat-raised-button>Submit</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

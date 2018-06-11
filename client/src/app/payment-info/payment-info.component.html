@@ -1,0 +1,35 @@
+<h3>Payment Information</h3>
+<form [formGroup]="villagerForm" (ngSubmit)="onNext()" novalidate>
+    <div formGroupName="address">
+        <mat-form-field>
+            <input matInput placeholder="Street" formControlName="street">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="City" formControlName="city">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="State" formControlName="state">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput #zip placeholder="Zip" formControlName="zip">
+            <mat-hint align="end">
+              {{zip.value.length}} / 5
+            </mat-hint>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <input matInput placeholder="Cardholder Name" formControlName="cardholdername">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Card Number" formControlName="cardnumber">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="MM" formControlName="expmonth">
+        </mat-form-field>
+    </div>
+    <div>
+        <button (click)="onBack()" mat-raised-button>BACK</button>
+        <button type="submit" mat-raised-button>NEXT</button>
+    </div>
+</form>

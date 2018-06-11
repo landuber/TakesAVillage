@@ -17,7 +17,7 @@ export class VillagerService {
   ) { }
 
 
-  createVillager(villager: Villager): Observable<any> {
+  createVillager(villager): Observable<any> {
       return this.http.post(`${this.villagerUrl}`, villager);
   }
 

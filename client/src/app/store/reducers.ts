@@ -106,6 +106,9 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
  * }
  * ```
  */
+
+//export const getVillagerState = createFeatureSelector<fromVillager.State>('villager');
+//export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
 export const getVillagerState = (state: State) => state.villager;
 export const getAuthState = (state: State) => state.auth;
 

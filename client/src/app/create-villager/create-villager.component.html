@@ -1,53 +1,190 @@
-<h3>Register</h3>
-<form [formGroup]="villagerForm" (ngSubmit)="onSubmit()" novalidate>
-    <div>
-        <mat-form-field>
-            <input matInput type="email" placeholder="Email" formControlName="email">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="password" placeholder="Password" formControlName="password">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="password" placeholder="Confirm Password" formControlName="confirmpassword">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field>
-            <input matInput placeholder="First Name" formControlName="firstname">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Middle Name" formControlName="middlename">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Last Name" formControlName="lastname">
-        </mat-form-field>
-    </div>
-    <div formGroupName="address">
-        <mat-form-field>
-            <input matInput placeholder="Street" formControlName="street">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="City" formControlName="city">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="State" formControlName="state">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput #zip placeholder="Zip" formControlName="zip">
-            <mat-hint align="end">
-              {{zip.value.length}} / 5
-            </mat-hint>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field>
-            <input matInput placeholder="SSN" formControlName="ssn">
-        </mat-form-field>
-        <mat-form-field>
-            <textarea matInput placeholder="Short Bio" formControlName="shortbio"></textarea>
-        </mat-form-field>
-    </div>
-    <div>
-        <button type="submit" mat-raised-button>Submit</button>
-    </div>
-</form>
+<mat-horizontal-stepper [linear]="false" (selectionChange)="onNext($event)">
+    <mat-step [stepControl]="villagerForm">
+        <form [formGroup]="villagerForm" class="tv-signup-form" novalidate>
+            <ng-template matStepLabel>Basic Information</ng-template>
+            <div>
+                <mat-form-field>
+                    <input matInput type="email" placeholder="Email" formControlName="email" required>
+                </mat-form-field>
+            </div>
+            <div formGroupName="passwordGroup">
+                <div>
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Password" formControlName="password" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Confirm Password" formControlName="confirmpassword" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="First Name" formControlName="firstname" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="Middle Name" formControlName="middlename">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" formControlName="lastname" required>
+                </mat-form-field>
+            </div>
+            <div formGroupName="address">
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="Street" formControlName="street" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="City" formControlName="city" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="State" formControlName="state" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput  placeholder="Zip" formControlName="zip" required>
+                        <mat-hint align="end">
+                          {{zip.value.length}} / 5
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="Phone Number" formControlName="phonenumber" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-button mat-raised-button matStepperNext>NEXT</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="paymentInfoForm">
+        <form [formGroup]="paymentInfoForm" class="tv-signup-form" novalidate>
+            <ng-template matStepLabel>Payment Information</ng-template>
+            <div formGroupName="address">
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="Street" formControlName="street" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="City" formControlName="city" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="State" formControlName="state" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput #zip placeholder="Zip" formControlName="zip" required>
+                        <mat-hint align="end">
+                            {{zip.value.length}} / 5
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="Cardholder Name" formControlName="cardholdername" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="Card Number" formControlName="cardnumber" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="MM" formControlName="expmonth" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="YYYY" formControlName="expyear" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="CVV" formControlName="cvv" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-button mat-raised-button matStepperPrevious>BACK</button>
+                <button mat-button mat-raised-button matStepperNext>NEXT</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Review My Info</ng-template>
+        <div *ngIf="villager$ | async; let villager; else loading" class="tv-signup-summary">
+            <table>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{villager.email}}</td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td>{{villager.firstname}} {{villager.mitdrename}} {{villager.lastname}}</td>
+                </tr>
+                <tr>
+                    <td>Street:</td>
+                    <td>{{villager.address.street}}</td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td>{{villager.address.city}}</td>
+                </tr>
+                <tr>
+                    <td>State:</td>
+                    <td>{{villager.address.state}}</td>
+                </tr>
+                <tr>
+                    <td>Zip:</td>
+                    <td>{{villager.address.zip}}</td>
+                </tr>
+                <tr>
+                    <td>Phone Number:</td>
+                    <td>{{villager.phonenumber}}</td>
+                </tr>
+                <tr>
+                    <td>Cardholder Name:</td>
+                    <td>{{villager.paymentinfo.cardholdername}}</td>
+                </tr>
+                <tr>
+                    <td>Card Number:</td>
+                    <td>{{villager.paymentinfo.cardnumber}}</td>
+                </tr>
+                <tr>
+                    <td>Card Number:</td>
+                    <td>{{villager.paymentinfo.expmonth}}</td>
+                </tr>
+                <tr>
+                    <td>Expiration Date:</td>
+                    <td>{{villager.paymentinfo.expmonth}}//{{villager.paymentinfo.expyear}}</td>
+                </tr>
+                <tr>
+                    <td>CVV:</td>
+                    <td>{{villager.paymentinfo.cvv}}</td>
+                </tr>
+            </table>
+            <div>
+                <button mat-button mat-raised-button matStepperPrevious>BACK</button>
+                <button mat-button mat-raised-button (click)="onSubmit($event)">Become Villager</button>
+            </div>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

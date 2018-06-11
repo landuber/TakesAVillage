@@ -2,50 +2,31 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var mongoosePaginate = require('mongoose-paginate');
 
-var VillagerSchema = new mongoose.Schema({
-    Email: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    Password:  {
-        type: String,
-        required: true
-    },
-    FirstName: {
-        type: String,
-        required: true
-    },
-    MiddleName: {
-        type: String
-    },
-    LastName: {
-        type: String,
-        required: true
-    },
-    Street: {
-        type: String,
-        required: true
-    },
-    City: {
-        type: String,
-        required: true
-    },
-    State: {
-        type: String,
-        required: true
-    },
-    Zip: {
-        type: String,
-        required: true
-    },
-    SSN: {
-        type: String,
-        required: true
-    },
-    ShortBio: {
-        type: String
-    }
+var addressSchema = new mongoose.Schema({
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true }, 
+    zip: { type: String, required: true }
+});
+
+var paymentInfoSchema = new mongoose.Schema({
+    address: addressSchema,
+    cardholdername: { type: String, required: true },
+    cardnumber: { type: String, required: true },
+    expmonth: { type: String, required: true },
+    expyear: { type: String, required: true },
+    cvv: { type: String, required: true },
+});
+
+var villagerSchema = new mongoose.Schema({
+    email: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    firstname: { type: String, required: true },
+    middlename: { type: String },
+    lastname: { type: String, required: true },
+    phonenumber: { type: String, required: true},
+    address: addressSchema, 
+    paymentinfo: paymentInfoSchema
 });
 
 /*
@@ -71,19 +52,18 @@ VillagerSchema.pre('save', async function hashPassword(next) {
 });
 */
 
-VillagerSchema.pre('save', function (next) {
+villagerSchema.pre('save', function (next) {
     var villager = this;
-    console.log(villager);
-    if (this.isModified('Password') || this.isNew) {
+    if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
                 return next(err);
             }
-            bcrypt.hash(villager.Password, salt, null, function (err, hash) {
+            bcrypt.hash(villager.password, salt, null, function (err, hash) {
                 if (err) {
                     return next(err);
                 }
-                villager.Password = hash;
+                villager.password = hash;
                 next();
             });
         });
@@ -92,9 +72,9 @@ VillagerSchema.pre('save', function (next) {
     }
 });
 
-VillagerSchema.methods.comparePassword = function comparePassword(passw) {
+villagerSchema.methods.comparePassword = function comparePassword(passw) {
     return new Promise((resolve, reject) => {
-        bcrypt.compare(passw, this.Password, function(err, isMatch) {
+        bcrypt.compare(passw, this.password, function(err, isMatch) {
            if(err) { 
                reject(err); 
            } else {
@@ -104,7 +84,7 @@ VillagerSchema.methods.comparePassword = function comparePassword(passw) {
     });
 }
 
-VillagerSchema.plugin(mongoosePaginate)
-const Villager = mongoose.model('Villager', VillagerSchema);
+villagerSchema.plugin(mongoosePaginate)
+const Villager = mongoose.model('villager', villagerSchema);
 
 module.exports = Villager;
